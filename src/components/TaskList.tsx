@@ -24,8 +24,7 @@ export function TaskList() {
       isComplete: false,
     }
 
-    setTasks([...tasks, newTask])
-
+    setTasks((prevState) => [...prevState, newTask])
     setNewTaskTitle('')
   }
 
@@ -37,20 +36,19 @@ export function TaskList() {
       taskCompleted
     )
 
-    setTasks((prevState) => ({
-      ...prevState,
-      taskCompleted: {
-        ...prevState,
-        isComplete: true,
-      },
-    }))
+    const taskUpdated = {
+      ...taskCompleted,
+      isComplete: true,
+    }
+
+    setTasks((prevState) => [...prevState, taskUpdated])
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
-    const UpdateTasks = tasks.filter((task) => task.id !== id)
+    const filteredTasks = tasks.filter((task) => task.id !== id)
 
-    setTasks(UpdateTasks)
+    setTasks(filteredTasks)
   }
 
   console.log('tasks', tasks)
